@@ -1,7 +1,7 @@
 package com.code.wars.models
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserResponse (
