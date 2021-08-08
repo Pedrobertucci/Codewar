@@ -5,32 +5,32 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class UserResponse (
-    val username: String,
-    val name: String,
-    val honor: Long,
-    val clan: String,
-    val leaderboardPosition: Long,
-    val skills: List<String>,
-    val ranks: Ranks,
-    val codeChallenges: CodeChallenges
+    val username: String = "",
+    val name: String = "",
+    val honor: Int = -1,
+    val clan: String = "",
+    val leaderboardPosition: Int = -1,
+    val skills: List<String> = listOf(),
+    val ranks: Ranks = Ranks(),
+    val codeChallenges: CodeChallenges = CodeChallenges()
 ) : Parcelable
 
 @Parcelize
 data class CodeChallenges (
-    val totalAuthored: Long,
-    val totalCompleted: Long
+    val totalAuthored: Int = -1,
+    val totalCompleted: Int = -1
 ) : Parcelable
 
 @Parcelize
 data class Ranks (
-    val overall: Overall,
-    val languages: Map<String, Overall>
+    val overall: Overall = Overall(),
+    val languages: Map<String, Overall> = HashMap()
 ) : Parcelable
 
 @Parcelize
 data class Overall (
-    val rank: Long,
-    val name: String,
-    val color: String,
-    val score: Long
+    val rank: Int = -1,
+    val name: String = "",
+    val color: String = "",
+    val score: Int = -1
 ) : Parcelable

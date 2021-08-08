@@ -6,17 +6,17 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class CompletedResponse (
-    val totalPages: Long,
-    val totalItems: Long,
+    val totalPages: Int = -1,
+    val totalItems: Int = -1,
     @SerializedName("data")
     val completed: ArrayList<Completed> = ArrayList()
 ) : Parcelable
 
 @Parcelize
 data class Completed (
-    val id: String,
-    val name: String,
-    val slug: String,
-    val completedLanguages: List<String>,
-    val completedAt: String
+    val id: String = "",
+    val name: String = "",
+    val slug: String = "",
+    val completedLanguages: List<String> = listOf(),
+    val completedAt: String = ""
 ) : Parcelable
