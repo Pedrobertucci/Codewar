@@ -7,7 +7,7 @@ import java.io.IOException
 sealed class SafeResponse<out T> {
     data class Success<out T>(val value: T): SafeResponse<T>()
     data class GenericError(val code: Int, val error: String? = null): SafeResponse<Nothing>()
-    object NetworkError: SafeResponse<Nothing>()
+    data class NetworkError(val error: String? = null): SafeResponse<Nothing>()
 }
 
 suspend fun <T> safeRequest(request: suspend () -> T): SafeResponse<T> {
@@ -22,7 +22,7 @@ suspend fun <T> safeRequest(request: suspend () -> T): SafeResponse<T> {
 
     } catch (exception: Exception) {
         when (exception) {
-            is IOException -> SafeResponse.NetworkError
+            is IOException -> SafeResponse.NetworkError("Network exception")
             is HttpException -> {
                 val code = exception.code()
                 SafeResponse.GenericError(code, convertErrorBody(exception))
@@ -34,7 +34,7 @@ suspend fun <T> safeRequest(request: suspend () -> T): SafeResponse<T> {
     }
 }
 
-private fun convertErrorBody(throwable: HttpException?): String? {
+fun convertErrorBody(throwable: HttpException?): String? {
     return try {
         throwable?.response()?.errorBody().toString()
     } catch (exception: Exception) {
