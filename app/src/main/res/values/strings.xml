@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Codewars</string>
+
+    <string name="search_empty">Member not found</string>
+
+    <string name="user_not_found">User not found</string>
 </resources>

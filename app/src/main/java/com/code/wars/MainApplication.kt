@@ -1,15 +1,7 @@
 package com.code.wars
 
 import android.app.Application
-import com.code.wars.di.ApplicationComponent
-import com.code.wars.di.DaggerApplicationComponent
+import dagger.hilt.android.HiltAndroidApp
 
-class MainApplication : Application() {
-
-    lateinit var applicationComponent: ApplicationComponent
-
-    override fun onCreate() {
-        super.onCreate()
-        applicationComponent = DaggerApplicationComponent.builder().build()
-    }
-}
+@HiltAndroidApp
+class MainApplication : Application()
