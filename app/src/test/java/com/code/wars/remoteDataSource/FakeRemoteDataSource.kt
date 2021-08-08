@@ -1,8 +1,6 @@
 package com.code.wars.remoteDataSource
 
-import com.code.wars.models.AuthoredResponse
-import com.code.wars.models.CompletedResponse
-import com.code.wars.models.UserResponse
+import com.code.wars.models.*
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
@@ -40,7 +38,11 @@ class FakeRemoteDataSource : RemoteDataSource {
             }
 
             else -> {
-                Response.success(CompletedResponse())
+                val completed = CompletedResponse()
+                completed.completed.add(Completed())
+                completed.completed.add(Completed())
+                completed.completed.add(Completed())
+                Response.success(completed)
             }
         }
     }
@@ -57,7 +59,11 @@ class FakeRemoteDataSource : RemoteDataSource {
             }
 
             else -> {
-                Response.success(AuthoredResponse())
+                val authored = AuthoredResponse()
+                authored.challenges.add(Challenge())
+                authored.challenges.add(Challenge())
+                authored.challenges.add(Challenge())
+                Response.success(authored)
             }
         }
     }

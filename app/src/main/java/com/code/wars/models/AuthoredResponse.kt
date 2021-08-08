@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AuthoredResponse (
     @SerializedName("data")
-    val challenges: List<Challenge> = ArrayList()
+    val challenges: ArrayList<Challenge> = ArrayList()
 ) : Parcelable
 
 @Parcelize
