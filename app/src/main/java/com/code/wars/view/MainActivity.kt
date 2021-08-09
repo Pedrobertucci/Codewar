@@ -3,7 +3,7 @@ package com.code.wars.view
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.SearchView
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,32 +44,17 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun setupSearch() {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    if (query.length > 3 && Utils.hasNetwork(this@MainActivity)) {
-                        viewModel.getUser(query)
-                    } else {
-                        resultList.clear()
-                        adapter.notifyDataSetChanged()
-                    }
+        binding.searchView.queryHint = resources.getString(R.string.hint_search_user)
+        binding.searchView.setOnQueryTextListener(DebouncingQueryTextListener(this.lifecycle) { query ->
+            query?.let {
+                if (it.length > 3 && Utils.hasNetwork(this@MainActivity)) {
+                    viewModel.getUser(it)
+                } else {
+                    resultList.clear()
+                    adapter.notifyDataSetChanged()
                 }
-                return true
-            }
-
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let {
-                    if (newText.length > 3 && Utils.hasNetwork(this@MainActivity)) {
-                        viewModel.getUser(newText)
-                    } else {
-                        resultList.clear()
-                        adapter.notifyDataSetChanged()
-                    }
-                }
-                return true
             }
         })
     }
@@ -78,6 +63,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupObservers() {
         viewModel.userLiveData.observe(this, {
             it?.let {
+                validateTextIsVisible(false)
                 resultList.add(it)
                 adapter.notifyDataSetChanged()
             }
@@ -85,14 +71,15 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.errorLiveData.observe(this, {
             it?.let {
-                Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                validateTextIsVisible(true)
             }
         })
+    }
 
-        viewModel.emptyValuesLiveData.observe(this, {
-            it?.let {
-                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
-            }
-        })
+    private fun validateTextIsVisible(show: Boolean) {
+        if (show && binding.txtEmptyData.visibility == View.INVISIBLE)
+            binding.txtEmptyData.visibility = View.VISIBLE
+        else
+            binding.txtEmptyData.visibility = View.INVISIBLE
     }
 }
