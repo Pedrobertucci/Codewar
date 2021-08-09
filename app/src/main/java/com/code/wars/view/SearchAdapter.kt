@@ -12,8 +12,9 @@ class SearchAdapter(private val resultList: ArrayList<UserResponse>,
 
     inner class ViewHolder(private val itemBinding: MemberCardBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(userResponse: UserResponse) {
+        fun bind(userResponse: UserResponse, userOnClickListener: UserOnClickListener) {
             itemBinding.item = userResponse
+            itemBinding.userOnClickListener = userOnClickListener
             itemBinding.executePendingBindings()
         }
     }
@@ -25,7 +26,7 @@ class SearchAdapter(private val resultList: ArrayList<UserResponse>,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(resultList[position])
+        holder.bind(resultList[position], userOnClickListener)
     }
 
     override fun getItemCount(): Int = resultList.size
