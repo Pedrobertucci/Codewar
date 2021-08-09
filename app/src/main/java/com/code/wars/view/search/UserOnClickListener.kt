@@ -1,4 +1,4 @@
-package com.code.wars.view
+package com.code.wars.view.search
 
 import com.code.wars.models.UserResponse
 

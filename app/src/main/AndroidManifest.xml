@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Codewars">
         <activity
-            android:name=".view.MainActivity"
+            android:name=".view.profile.ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.search.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

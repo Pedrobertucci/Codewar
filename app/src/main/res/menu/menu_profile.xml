@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/completedFragment"
+        android:title="@string/menu_completed"
+        android:enabled="true"
+        android:icon="@drawable/ic_completed" />
+
+    <item android:id="@+id/authoredFragment"
+        android:title="@string/menu_authored"
+        android:enabled="true"
+        android:icon="@drawable/ic_authored" />
+</menu>

@@ -1,6 +1,7 @@
-package com.code.wars.view
+package com.code.wars.view.search
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -10,7 +11,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.code.wars.R
 import com.code.wars.databinding.ActivityMainBinding
 import com.code.wars.models.UserResponse
+import com.code.wars.utils.Constants
 import com.code.wars.utils.Utils
+import com.code.wars.view.DebouncingQueryTextListener
+import com.code.wars.view.profile.ProfileActivity
 import com.code.wars.viewModels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -36,8 +40,9 @@ class MainActivity : AppCompatActivity() {
     private fun setupResultList() {
         adapter = SearchAdapter(resultList, object : UserOnClickListener {
             override fun onClick(userResponse: UserResponse) {
-                Toast.makeText(this@MainActivity,
-                    "${userResponse.username} clicked", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                intent.putExtra(Constants.argsUserResponse, userResponse)
+                startActivity(intent)
             }
         })
         binding.recyclerView.layoutManager = LinearLayoutManager(this)

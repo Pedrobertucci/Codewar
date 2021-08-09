@@ -9,4 +9,7 @@
     <string name="honor">Honor: %1$s</string>
     <string name="rank">Rank: %1$s</string>
     <string name="best_language">Best Language: %1$s</string>
+    <string name="menu_completed">Completed</string>
+    <string name="menu_authored">Authored</string>
+
 </resources>
