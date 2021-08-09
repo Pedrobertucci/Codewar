@@ -7,6 +7,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RemoteDataSource {
 
@@ -17,10 +18,10 @@ interface RemoteDataSource {
     ) : Response<UserResponse>
 
     @Headers("Content-Type: application/json")
-    @GET("api/v1/users/{user}/code-challenges/completed?page={page}")
+    @GET("api/v1/users/{user}/code-challenges/completed")
     suspend fun getCompletedCodeChallenges(
         @Path("user") user: String,
-        @Path("page") page: Int,
+        @Query("page") page: Int,
     ) : Response<CompletedResponse>
 
     @Headers("Content-Type: application/json")
