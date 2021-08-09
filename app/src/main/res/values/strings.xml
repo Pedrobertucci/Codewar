@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Codewars</string>
 
+    <string name="hint_search_user">Search user…</string>
     <string name="search_empty">Member not found</string>
 
     <string name="user_not_found">User not found</string>
+    <string name="username">Username: %1$s</string>
+    <string name="honor">Honor: %1$s</string>
+    <string name="rank">Rank: %1$s</string>
+    <string name="best_language">Best Language: %1$s</string>
 </resources>
