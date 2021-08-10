@@ -6,11 +6,7 @@
 
         <variable
             name="item"
-            type="com.code.wars.models.UserResponse" />
-
-        <variable
-            name="userOnClickListener"
-            type="com.code.wars.view.search.UserOnClickListener" />
+            type="com.code.wars.models.Challenge" />
 
     </data>
 
@@ -19,8 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:padding="5dp"
-        app:cardCornerRadius="5dp"
-        android:onClick="@{() -> userOnClickListener.onClick(item)}">
+        app:cardCornerRadius="5dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -32,27 +27,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:maxLength="150"
-                android:text="@{@string/username(item.username)}"
-                app:layout_constraintEnd_toStartOf="@+id/txtDescription"
+                android:layout_marginEnd="16dp"
+                android:maxLength="100"
+                android:text="@{@string/generic_name(item.name)}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="@tools:sample/full_names" />
-
-            <TextView
-                android:id="@+id/txtDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:maxLength="50"
-                android:text="@{@string/rank(item.leaderboardPosition)}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtName"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="@tools:sample/lorem" />
 
             <TextView
                 android:id="@+id/txtRankName"
@@ -60,32 +42,26 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="16dp"
                 android:maxLength="100"
-                android:text="@{@string/best_language(item.ranks.overall.name)}"
+                android:text="@{@string/challenge_rank(item.rankName)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txtPoints"
-                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toStartOf="@+id/txtRankPosition"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDescription"
+                app:layout_constraintTop_toBottomOf="@+id/txtName"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:id="@+id/txtPoints"
+                android:id="@+id/txtRankPosition"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:maxLength="100"
-                android:text="@{@string/honor(item.ranks.overall.score)}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@{@string/challenge_rank_position(item.rank)}"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtRankName"
-                app:layout_constraintTop_toBottomOf="@+id/txtDescription"
-                tools:text="@tools:sample/lorem" />
+                app:layout_constraintTop_toBottomOf="@+id/txtName"
+                tools:text="@tools:sample/lorem[0]" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

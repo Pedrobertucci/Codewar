@@ -10,13 +10,23 @@
     <string name="rank">Rank: %1$s</string>
     <string name="best_language">Best Language:</string>
 
-    <string name="completed_name">Name: %1$s</string>
     <string name="slug">Slug: %1$s</string>
     <string name="completed_languages">Completed Languages: %1$s</string>
     <string name="completed_date">Date: </string>
 
+    <string name="generic_name">Name: %1$s</string>
+
+    <string name="challenge_description">Description: %1$s</string>
+    <string name="challenge_rank">Rank: %1$s</string>
+    <string name="challenge_rank_position">Position: %1$d</string>
+
     <string name="menu_completed">Completed</string>
     <string name="menu_authored">Authored</string>
 
+    <string name="title_completed">Completed Challenges</string>
+    <string name="title_authored">Authored Challenges</string>
+
     <string name="completed_show_all_values">End of the List, sorry!</string>
+    <string name="authored_empty_values">Content not available</string>
+
 </resources>
