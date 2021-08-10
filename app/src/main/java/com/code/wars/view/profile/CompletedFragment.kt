@@ -40,6 +40,7 @@ class CompletedFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupObservers()
         setupCompletedList()
+        viewModel.getCompletedCodeChallenge((requireActivity() as ProfileActivity).userResponse.username)
     }
 
     private fun setupCompletedList() {
@@ -86,11 +87,6 @@ class CompletedFragment : Fragment() {
                 }
             }
         })
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getCompletedCodeChallenge((requireActivity() as ProfileActivity).userResponse.username)
     }
 
     private val onScrollListener = object : RecyclerView.OnScrollListener() {

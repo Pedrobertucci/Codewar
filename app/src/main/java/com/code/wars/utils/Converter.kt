@@ -30,4 +30,12 @@ object Converter {
             view.text  = ""
         }
     }
+
+
+    @SuppressLint("SimpleDateFormat")
+    @BindingAdapter("data")
+    @JvmStatic
+    fun fillData(view: TextView, data: String?) {
+        view.text = data ?: ""
+    }
 }

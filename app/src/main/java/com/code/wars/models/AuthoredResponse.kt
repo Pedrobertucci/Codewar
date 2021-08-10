@@ -13,10 +13,10 @@ data class AuthoredResponse (
 @Parcelize
 data class Challenge (
     val id: String = "",
-    val name: String = "",
-    val description: String = "",
+    val name: String? = "",
+    val description: String? = "",
     val rank: Int = -1,
-    val rankName: String = "",
+    val rankName: String? = "",
     val tags: List<String> = listOf(),
     val languages: List<String> = listOf()
 ) : Parcelable

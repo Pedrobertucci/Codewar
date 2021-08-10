@@ -8,14 +8,20 @@
             name="item"
             type="com.code.wars.models.Challenge" />
 
+        <variable
+            name="challengeOnClickListener"
+            type="com.code.wars.view.profile.ChallengeOnClickListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:padding="5dp"
-        app:cardCornerRadius="5dp">
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="8dp"
+        android:onClick="@{() -> challengeOnClickListener.onClick(item)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
