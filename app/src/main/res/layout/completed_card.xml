@@ -6,11 +6,11 @@
 
         <variable
             name="item"
-            type="com.code.wars.models.UserResponse" />
+            type="com.code.wars.models.Completed" />
 
-        <variable
-            name="userOnClickListener"
-            type="com.code.wars.view.search.UserOnClickListener" />
+<!--        <variable-->
+<!--            name="userOnClickListener"-->
+<!--            type="com.code.wars.view.search.UserOnClickListener" />-->
 
     </data>
 
@@ -19,9 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:padding="5dp"
-        app:cardCornerRadius="5dp"
-        android:onClick="@{() -> userOnClickListener.onClick(item)}">
-
+        app:cardCornerRadius="5dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -32,9 +30,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:maxLength="150"
-                android:text="@{@string/username(item.username)}"
-                app:layout_constraintEnd_toStartOf="@+id/txtSlug"
+                android:layout_marginEnd="16dp"
+                android:maxLength="100"
+                android:text="@{@string/completed_name(item.name)}"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,50 +41,68 @@
 
             <TextView
                 android:id="@+id/txtSlug"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:maxLength="50"
-                android:text="@{@string/rank(item.leaderboardPosition)}"
+                android:maxLength="150"
+                android:text="@{@string/slug(item.slug)}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtName"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtName"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
                 android:id="@+id/txtBestLanguage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginEnd="16dp"
                 android:maxLength="100"
-                android:text="@{@string/best_language(item.ranks.overall.name)}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/txtPoints"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
+                app:languages="@{item.completedLanguages}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txtLabelLanguage"
                 app:layout_constraintTop_toBottomOf="@+id/txtSlug"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:id="@+id/txtPoints"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtDate"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
                 android:maxLength="100"
-                android:text="@{@string/honor(item.ranks.overall.score)}"
+                app:date="@{item.completedAt}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtBestLanguage"
-                app:layout_constraintTop_toBottomOf="@+id/txtSlug"
+                app:layout_constraintStart_toEndOf="@+id/txtLabelDate"
+                app:layout_constraintTop_toBottomOf="@+id/txtBestLanguage"
                 tools:text="@tools:sample/lorem" />
+
+            <TextView
+                android:id="@+id/txtLabelLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/best_language"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtSlug" />
+
+            <TextView
+                android:id="@+id/txtLabelDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/completed_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtBestLanguage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

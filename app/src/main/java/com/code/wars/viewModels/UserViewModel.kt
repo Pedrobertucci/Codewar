@@ -1,5 +1,6 @@
 package com.code.wars.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -9,6 +10,7 @@ import com.code.wars.models.CompletedResponse
 import com.code.wars.models.UserResponse
 import com.code.wars.remoteDataSource.SafeResponse
 import com.code.wars.repositories.UserRepository
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.NotNull
 import javax.inject.Inject
@@ -57,7 +59,9 @@ class UserViewModel @Inject constructor(
     }
 
     fun getCompletedCodeChallenge(@NotNull user: String) {
+        Log.d("completedSteps", "getCompletedCodeChallenge: $user")
         viewModelScope.launch {
+            delay(500)
             when(val response = repository.getCompletedCodeChallenge(user)) {
                 is SafeResponse.NetworkError -> {
                     errorMutableData.value = "Network Error"

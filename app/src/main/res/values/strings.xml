@@ -8,8 +8,15 @@
     <string name="username">Username: %1$s</string>
     <string name="honor">Honor: %1$s</string>
     <string name="rank">Rank: %1$s</string>
-    <string name="best_language">Best Language: %1$s</string>
+    <string name="best_language">Best Language:</string>
+
+    <string name="completed_name">Name: %1$s</string>
+    <string name="slug">Slug: %1$s</string>
+    <string name="completed_languages">Completed Languages: %1$s</string>
+    <string name="completed_date">Date: </string>
+
     <string name="menu_completed">Completed</string>
     <string name="menu_authored">Authored</string>
 
+    <string name="completed_show_all_values">End of the List, sorry!</string>
 </resources>

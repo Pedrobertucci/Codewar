@@ -30,5 +30,4 @@ class SearchAdapter(private val resultList: ArrayList<UserResponse>,
     }
 
     override fun getItemCount(): Int = resultList.size
-
 }
