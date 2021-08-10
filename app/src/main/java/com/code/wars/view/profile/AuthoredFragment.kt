@@ -46,6 +46,7 @@ class AuthoredFragment : Fragment() {
     private fun setupObservers() {
         viewModel.authoredLiveData.observe(requireActivity() as ProfileActivity, {
             it?.let {
+                validateTextIsVisible(it.challenges.size <= 0)
                 challenges.addAll(it.challenges)
                 adapter.notifyDataSetChanged()
             }
@@ -60,8 +61,19 @@ class AuthoredFragment : Fragment() {
         viewModel.emptyValuesLiveData.observe(requireActivity() as ProfileActivity, {
             it?.let {
                 if (it) {
-                    Toast.makeText(requireContext(),
-                        requireContext().getText(R.string.authored_empty_values), Toast.LENGTH_SHORT).show()
+                    validateTextIsVisible(true)
+                }
+            }
+        })
+
+        viewModel.loadingLiveData.observe(requireActivity() as ProfileActivity, {
+            it?.let {
+                if (it) {
+                    if (binding.progressBar.visibility == View.INVISIBLE)
+                        binding.progressBar.visibility = View.VISIBLE
+                } else {
+                    if (binding.progressBar.visibility == View.VISIBLE)
+                        binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         })
@@ -70,5 +82,12 @@ class AuthoredFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         viewModel.getAuthoredChallenges((requireActivity() as ProfileActivity).userResponse.username)
+    }
+
+    private fun validateTextIsVisible(show: Boolean) {
+        if (show && binding.txtEmptyData.visibility == View.INVISIBLE)
+            binding.txtEmptyData.visibility = View.VISIBLE
+        else
+            binding.txtEmptyData.visibility = View.INVISIBLE
     }
 }

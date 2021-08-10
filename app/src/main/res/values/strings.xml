@@ -5,6 +5,9 @@
     <string name="search_empty">Member not found</string>
 
     <string name="user_not_found">User not found</string>
+    <string name="user_without_authored_challenges">User without Authored Challenges</string>
+    <string name="user_without_completed_challenges">User without Completed Challenges</string>
+
     <string name="username">Username: %1$s</string>
     <string name="honor">Honor: %1$s</string>
     <string name="rank">Rank: %1$s</string>

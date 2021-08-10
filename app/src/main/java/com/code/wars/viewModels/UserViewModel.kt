@@ -1,6 +1,5 @@
 package com.code.wars.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,13 +9,11 @@ import com.code.wars.models.CompletedResponse
 import com.code.wars.models.UserResponse
 import com.code.wars.remoteDataSource.SafeResponse
 import com.code.wars.repositories.UserRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.jetbrains.annotations.NotNull
 import javax.inject.Inject
 
-class UserViewModel @Inject constructor(
-    private val repository: UserRepository) : ViewModel() {
+class UserViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
     private val userMutableData = MutableLiveData<UserResponse>()
     val userLiveData: LiveData<UserResponse> get() = userMutableData
@@ -33,18 +30,27 @@ class UserViewModel @Inject constructor(
     private val errorMutableData = MutableLiveData<String>()
     val errorLiveData: LiveData<String> get() = errorMutableData
 
+    private val loadingMutableData = MutableLiveData<Boolean>()
+    val loadingLiveData: LiveData<Boolean> get() = loadingMutableData
+
     fun getUser(@NotNull user: String) {
         viewModelScope.launch {
+            loadingMutableData.value = true
+
             when(val response = repository.getUser(user)) {
                 is SafeResponse.NetworkError -> {
+                    loadingMutableData.value = false
                     errorMutableData.value = "Network Error"
                 }
 
                 is SafeResponse.GenericError -> {
+                    loadingMutableData.value = false
                     errorMutableData.value = response.error
                 }
 
                 is SafeResponse.Success -> {
+                    loadingMutableData.value = false
+
                     response.value.body()?.let {
                         if (it.username.isNotEmpty())
                             userMutableData.value = it
@@ -59,19 +65,22 @@ class UserViewModel @Inject constructor(
     }
 
     fun getCompletedCodeChallenge(@NotNull user: String) {
-        Log.d("completedSteps", "getCompletedCodeChallenge: $user")
         viewModelScope.launch {
-            delay(500)
+            loadingMutableData.value = true
             when(val response = repository.getCompletedCodeChallenge(user)) {
                 is SafeResponse.NetworkError -> {
+                    loadingMutableData.value = false
                     errorMutableData.value = "Network Error"
                 }
 
                 is SafeResponse.GenericError -> {
+                    loadingMutableData.value = false
                     errorMutableData.value = response.error
                 }
 
                 is SafeResponse.Success -> {
+                    loadingMutableData.value = false
+
                     response.value.body()?.let {
                         if (it.completed.isEmpty())
                             emptyValuesMutableData.value = true
@@ -87,16 +96,20 @@ class UserViewModel @Inject constructor(
 
     fun getAuthoredChallenges(@NotNull user: String) {
         viewModelScope.launch {
+            loadingMutableData.value = true
             when(val response = repository.getAuthoredChallenges(user)) {
                 is SafeResponse.NetworkError -> {
+                    loadingMutableData.value = false
                     errorMutableData.value = "Network Error"
                 }
 
                 is SafeResponse.GenericError -> {
+                    loadingMutableData.value = false
                     errorMutableData.value = response.error
                 }
 
                 is SafeResponse.Success -> {
+                    loadingMutableData.value = false
                     response.value.body()?.let {
                         if (it.challenges.isEmpty())
                             emptyValuesMutableData.value = true

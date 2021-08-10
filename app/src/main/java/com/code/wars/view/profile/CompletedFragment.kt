@@ -55,6 +55,7 @@ class CompletedFragment : Fragment() {
         viewModel.completedLiveData.observe(requireActivity() as ProfileActivity, {
             it?.let {
                 loading = true
+                validateTextIsVisible(it.completed.size <= 0)
                 completedList.addAll(it.completed)
                 adapter.notifyDataSetChanged()
             }
@@ -69,8 +70,19 @@ class CompletedFragment : Fragment() {
         viewModel.emptyValuesLiveData.observe(requireActivity() as ProfileActivity, {
             it?.let {
                 if (it) {
-                    Toast.makeText(requireContext(),
-                        requireContext().getText(R.string.completed_show_all_values), Toast.LENGTH_SHORT).show()
+                    validateTextIsVisible(true)
+                }
+            }
+        })
+
+        viewModel.loadingLiveData.observe(requireActivity() as ProfileActivity, {
+            it?.let {
+                if (it) {
+                    if (binding.progressBar.visibility == View.INVISIBLE)
+                        binding.progressBar.visibility = View.VISIBLE
+                } else {
+                    if (binding.progressBar.visibility == View.VISIBLE)
+                        binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         })
@@ -96,5 +108,12 @@ class CompletedFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun validateTextIsVisible(show: Boolean) {
+        if (show && binding.txtEmptyData.visibility == View.INVISIBLE)
+            binding.txtEmptyData.visibility = View.VISIBLE
+        else
+            binding.txtEmptyData.visibility = View.INVISIBLE
     }
 }
