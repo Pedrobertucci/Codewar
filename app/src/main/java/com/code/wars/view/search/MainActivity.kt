@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.code.wars.R
@@ -18,6 +17,8 @@ import com.code.wars.view.profile.ProfileActivity
 import com.code.wars.viewModels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+import androidx.appcompat.app.AlertDialog
+
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -34,7 +35,24 @@ class MainActivity : AppCompatActivity() {
         setupObservers()
         setupResultList()
         setupSearch()
+        setupNetwork()
         binding.lifecycleOwner = this
+    }
+
+    private fun setupNetwork() {
+       if (!Utils.hasNetwork(this)) {
+           val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+           builder.setTitle(resources.getText(R.string.error_network_title))
+           builder.setMessage(resources.getText(R.string.error_network_message))
+           builder.setPositiveButton(resources.getText(R.string.error_network_connect)) { _, _ ->
+               startActivity(Intent(android.provider.Settings.ACTION_WIFI_SETTINGS))
+           }
+
+           builder.setNegativeButton(
+               resources.getText(R.string.error_network_close)) { dialog, _ -> dialog.dismiss() }
+           val alertDialog: AlertDialog = builder.create()
+           alertDialog.show()
+       }
     }
 
     private fun setupResultList() {
@@ -68,6 +86,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupObservers() {
         viewModel.userLiveData.observe(this, {
             it?.let {
+                hideWelcomeMessage()
                 validateTextIsVisible(false)
                 resultList.add(it)
                 adapter.notifyDataSetChanged()
@@ -76,6 +95,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.errorLiveData.observe(this, {
             it?.let {
+                hideWelcomeMessage()
                 validateTextIsVisible(true)
             }
         })
@@ -86,5 +106,10 @@ class MainActivity : AppCompatActivity() {
             binding.txtEmptyData.visibility = View.VISIBLE
         else
             binding.txtEmptyData.visibility = View.INVISIBLE
+    }
+
+    private fun hideWelcomeMessage() {
+        if (binding.txtMessage.visibility == View.VISIBLE)
+            binding.txtMessage.visibility = View.INVISIBLE
     }
 }

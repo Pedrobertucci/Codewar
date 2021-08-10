@@ -43,8 +43,10 @@ class UserViewModelTest {
         viewModel.getUser("john123")
 
         val response = viewModel.errorLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.isNotEmpty())
+        assert(!loading)
     }
 
     @Test
@@ -54,8 +56,10 @@ class UserViewModelTest {
         viewModel.getUser("john123")
 
         val response = viewModel.errorLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.isNotEmpty())
+        assert(!loading)
     }
 
     @Test
@@ -65,8 +69,10 @@ class UserViewModelTest {
         viewModel.getUser("john123")
 
         val response = viewModel.emptyValuesLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response)
+        assert(!loading)
     }
 
     @Test
@@ -76,8 +82,11 @@ class UserViewModelTest {
         viewModel.getUser("john123")
 
         val response = viewModel.userLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.username.isNotEmpty())
+        assert(!loading)
+
     }
 
     @Test
@@ -87,8 +96,10 @@ class UserViewModelTest {
         viewModel.getCompletedCodeChallenge("john123")
 
         val response = viewModel.errorLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.isNotEmpty())
+        assert(!loading)
     }
 
     @Test
@@ -98,8 +109,10 @@ class UserViewModelTest {
         viewModel.getCompletedCodeChallenge("john123")
 
         val response = viewModel.errorLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.isNotEmpty())
+        assert(!loading)
     }
 
     @Test
@@ -109,8 +122,10 @@ class UserViewModelTest {
         viewModel.getCompletedCodeChallenge("john123")
 
         val response = viewModel.emptyValuesLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response)
+        assert(!loading)
     }
 
     @Test
@@ -120,8 +135,10 @@ class UserViewModelTest {
         viewModel.getCompletedCodeChallenge("john123")
 
         val response = viewModel.completedLiveData.getOrAwaitValueTest(10)
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.completed.isNotEmpty())
+        assert(!loading)
     }
 
     @Test
@@ -131,8 +148,10 @@ class UserViewModelTest {
         viewModel.getAuthoredChallenges("john123")
 
         val response = viewModel.errorLiveData.getOrAwaitValueTest(0)
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.isNotEmpty())
+        assert(!loading)
     }
 
     @Test
@@ -142,8 +161,10 @@ class UserViewModelTest {
         viewModel.getAuthoredChallenges("john123")
 
         val response = viewModel.errorLiveData.getOrAwaitValueTest(5)
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.isNotEmpty())
+        assert(!loading)
     }
 
     @Test
@@ -153,8 +174,10 @@ class UserViewModelTest {
         viewModel.getAuthoredChallenges("john123")
 
         val response = viewModel.emptyValuesLiveData.getOrAwaitValueTest()
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response)
+        assert(!loading)
     }
 
     @Test
@@ -164,8 +187,10 @@ class UserViewModelTest {
         viewModel.getAuthoredChallenges("john123")
 
         val response = viewModel.authoredLiveData.getOrAwaitValueTest(10)
+        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.challenges.isNotEmpty())
+        assert(!loading)
     }
 
     private fun networkError() {

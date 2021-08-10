@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Codewars</string>
 
+    <string name="welcome_message">Welcome to Code War</string>
+
     <string name="hint_search_user">Search user…</string>
     <string name="search_empty">Member not found</string>
 
@@ -36,5 +38,10 @@
     <string name="authored_empty_values">Content not available</string>
 
     <string name="content_description_img_close">Close details</string>
+
+    <string name="error_network_title">No internet Connection</string>
+    <string name="error_network_message">Please turn on internet connection to continue</string>
+    <string name="error_network_connect">Connect</string>
+    <string name="error_network_close">Close</string>
 
 </resources>
