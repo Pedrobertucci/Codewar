@@ -6,13 +6,13 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UserResponse (
     val username: String = "",
-    val name: String = "",
+    val name: String? = "",
     val honor: Int = -1,
-    val clan: String = "",
+    val clan: String? = "",
     val leaderboardPosition: Int = -1,
-    val skills: List<String> = listOf(),
-    val ranks: Ranks = Ranks(),
-    val codeChallenges: CodeChallenges = CodeChallenges()
+    val skills: List<String>? = listOf(),
+    val ranks: Ranks? = Ranks(),
+    val codeChallenges: CodeChallenges? = CodeChallenges()
 ) : Parcelable
 
 @Parcelize

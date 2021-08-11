@@ -38,6 +38,7 @@
     <string name="authored_empty_values">Content not available</string>
 
     <string name="content_description_img_close">Close details</string>
+    <string name="content_description_btn_sort">Sort List</string>
 
     <string name="error_network_title">No internet Connection</string>
     <string name="error_network_message">Please turn on internet connection to continue</string>

@@ -19,7 +19,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import androidx.appcompat.app.AlertDialog
 
-
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -63,42 +62,72 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         })
+
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setupSearch() {
+        binding.btnReverse.setOnClickListener { reverseResultList() }
         binding.searchView.queryHint = resources.getString(R.string.hint_search_user)
         binding.searchView.setOnQueryTextListener(DebouncingQueryTextListener(this.lifecycle) { query ->
             query?.let {
-                if (it.length > 3 && Utils.hasNetwork(this@MainActivity)) {
+                if (it.length > 2 && Utils.hasNetwork(this@MainActivity)) {
                     viewModel.getUser(it)
-                } else {
-                    resultList.clear()
-                    adapter.notifyDataSetChanged()
                 }
             }
         })
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun setupObservers() {
         viewModel.userLiveData.observe(this, {
             it?.let {
                 hideWelcomeMessage()
                 validateTextIsVisible(false)
-                resultList.add(it)
-                adapter.notifyDataSetChanged()
+                validateUser(it)
             }
         })
 
         viewModel.errorLiveData.observe(this, {
             it?.let {
                 hideWelcomeMessage()
-                validateTextIsVisible(true)
+                validateTextIsVisible(resultList.size == 0)
             }
         })
+
+        viewModel.loadingLiveData.observe(this, {
+            it?.let {
+                if (it) {
+                    if (binding.progressBar.visibility == View.INVISIBLE)
+                        binding.progressBar.visibility = View.VISIBLE
+                } else {
+                    if (binding.progressBar.visibility == View.VISIBLE)
+                        binding.progressBar.visibility = View.INVISIBLE
+                }
+            }
+        })
+    }
+
+    private fun validateUser(userResponse: UserResponse) {
+        val result = resultList.filter { user-> user.username == userResponse.username}
+
+        if (result.isEmpty()) {
+            if (resultList.size == 5) {
+                resultList.removeAt(0)
+                adapter.notifyItemRemoved(0)
+            }
+
+            resultList.add(userResponse)
+            adapter.notifyItemInserted(resultList.size - 1)
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun reverseResultList() {
+        resultList.reverse()
+        adapter.notifyDataSetChanged()
     }
 
     private fun validateTextIsVisible(show: Boolean) {

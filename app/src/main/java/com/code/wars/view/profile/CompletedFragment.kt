@@ -47,6 +47,7 @@ class CompletedFragment : Fragment() {
         adapter = CompletedAdapter(completedList)
         linearLayoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.addOnScrollListener(onScrollListener)
+        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.layoutManager = linearLayoutManager
         binding.recyclerView.adapter = adapter
     }

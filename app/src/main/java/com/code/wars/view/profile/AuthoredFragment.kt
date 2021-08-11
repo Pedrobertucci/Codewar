@@ -51,6 +51,7 @@ class AuthoredFragment : Fragment() {
     private fun setupAdapter() {
         adapter = AuthoredAdapter(challenges, onClickListener)
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
     }
 
