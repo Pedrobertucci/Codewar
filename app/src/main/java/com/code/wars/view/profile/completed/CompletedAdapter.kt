@@ -1,18 +1,22 @@
-package com.code.wars.view.profile
+package com.code.wars.view.profile.completed
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.code.wars.databinding.CompletedCardBinding
 import com.code.wars.models.Completed
+import com.code.wars.view.profile.ProfileOnclickListener
 
-class CompletedAdapter(private val completedList: ArrayList<Completed>) :
+class CompletedAdapter(private val completedList: ArrayList<Completed>,
+                       private val profileOnclickListener: ProfileOnclickListener
+) :
     RecyclerView.Adapter<CompletedAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val itemBinding: CompletedCardBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(completed: Completed) {
             itemBinding.item = completed
+            itemBinding.completedOnClickListener = profileOnclickListener
             itemBinding.executePendingBindings()
         }
     }

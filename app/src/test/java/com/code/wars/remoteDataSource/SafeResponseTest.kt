@@ -16,7 +16,7 @@ class SafeResponseTest {
     @Test
     fun `should received return SafeResponse with success`() = runBlocking {
         val success = SafeResponse.Success(Response.success(""))
-        assert(success.value.isSuccessful)
+        assert(success.data.isSuccessful)
     }
 
     @Test

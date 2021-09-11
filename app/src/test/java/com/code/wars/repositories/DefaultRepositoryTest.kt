@@ -2,6 +2,7 @@ package com.code.wars.repositories
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.code.wars.remoteDataSource.FakeRemoteDataSource
+import com.code.wars.remoteDataSource.RemoteDataSource
 import com.code.wars.remoteDataSource.SafeResponse
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -21,7 +22,7 @@ class DefaultRepositoryTest {
 
     @Before
     fun setUp() {
-        defaultRepository = DefaultRepository(remoteDataSource)
+        defaultRepository = DefaultRepository(RemoteDataSource(remoteDataSource))
     }
 
     @Test
@@ -38,7 +39,7 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.body() == null)
+                assert(response.data.body() == null)
             }
         }
     }
@@ -58,7 +59,7 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.body() == null)
+                assert(response.data.body() == null)
             }
         }
     }
@@ -78,7 +79,7 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.body() != null)
+                assert(response.data.body() != null)
             }
         }
     }
@@ -98,7 +99,7 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.body() == null)
+                assert(response.data.body() == null)
             }
         }
     }
@@ -118,7 +119,7 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.body() == null)
+                assert(response.data.body() == null)
                 assert(defaultRepository.getPage() == 1)
             }
         }
@@ -139,8 +140,8 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.isSuccessful)
-                assert(response.value.body() != null)
+                assert(response.data.isSuccessful)
+                assert(response.data.body() != null)
                 assert(defaultRepository.getPage() == 1)
             }
         }
@@ -160,7 +161,7 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(!response.value.isSuccessful)
+                assert(!response.data.isSuccessful)
             }
         }
     }
@@ -180,8 +181,8 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.isSuccessful)
-                assert(response.value.body() == null)
+                assert(response.data.isSuccessful)
+                assert(response.data.body() == null)
             }
         }
     }
@@ -201,8 +202,8 @@ class DefaultRepositoryTest {
             }
 
             is SafeResponse.Success -> {
-                assert(response.value.isSuccessful)
-                assert(response.value.body() != null)
+                assert(response.data.isSuccessful)
+                assert(response.data.body() != null)
             }
         }
     }

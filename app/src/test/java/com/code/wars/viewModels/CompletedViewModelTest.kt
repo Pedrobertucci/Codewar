@@ -3,8 +3,8 @@ package com.code.wars.viewModels
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.code.wars.repositories.FakeUserRepository
+import com.code.wars.view.profile.completed.CompletedViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
@@ -14,7 +14,7 @@ import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 
 @ExperimentalCoroutinesApi
-class UserViewModelTest {
+class CompletedViewModelTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -22,7 +22,7 @@ class UserViewModelTest {
     @get:Rule
     var mainCoroutineRule = MainCoroutineRule()
 
-    private lateinit var viewModel: UserViewModel
+    private lateinit var viewModel: CompletedViewModel
 
     private val fakeRepository = FakeUserRepository()
 
@@ -33,60 +33,7 @@ class UserViewModelTest {
     fun setUp() {
         MockitoAnnotations.openMocks(context)
 
-        viewModel = UserViewModel(repository = fakeRepository)
-    }
-
-    @Test
-    fun `should fetch user and return a generic error`() = runBlockingTest {
-        networkError()
-
-        viewModel.getUser("john123")
-
-        val response = viewModel.errorLiveData.getOrAwaitValueTest()
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response.isNotEmpty())
-        assert(!loading)
-    }
-
-    @Test
-    fun `should fetch user and return http error`() = runBlocking {
-        httpError()
-
-        viewModel.getUser("john123")
-
-        val response = viewModel.errorLiveData.getOrAwaitValueTest()
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response.isNotEmpty())
-        assert(!loading)
-    }
-
-    @Test
-    fun `should fetch user and return empty`() = runBlockingTest {
-        emptyValues()
-
-        viewModel.getUser("john123")
-
-        val response = viewModel.emptyValuesLiveData.getOrAwaitValueTest()
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response)
-        assert(!loading)
-    }
-
-    @Test
-    fun `should fetch user and return some user`() = runBlockingTest {
-        success()
-
-        viewModel.getUser("john123")
-
-        val response = viewModel.userLiveData.getOrAwaitValueTest()
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response.username.isNotEmpty())
-        assert(!loading)
-
+        viewModel = CompletedViewModel(repository = fakeRepository)
     }
 
     @Test
@@ -138,58 +85,6 @@ class UserViewModelTest {
         val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
 
         assert(response.completed.isNotEmpty())
-        assert(!loading)
-    }
-
-    @Test
-    fun `should fetch user authored challenge and return a error`() = runBlockingTest {
-        networkError()
-
-        viewModel.getAuthoredChallenges("john123")
-
-        val response = viewModel.errorLiveData.getOrAwaitValueTest(0)
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response.isNotEmpty())
-        assert(!loading)
-    }
-
-    @Test
-    fun `should fetch user authored challenge and return a http error`() = runBlockingTest {
-        httpError()
-
-        viewModel.getAuthoredChallenges("john123")
-
-        val response = viewModel.errorLiveData.getOrAwaitValueTest(5)
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response.isNotEmpty())
-        assert(!loading)
-    }
-
-    @Test
-    fun `should fetch user authored challenge and return empty`() = runBlockingTest {
-        emptyValues()
-
-        viewModel.getAuthoredChallenges("john123")
-
-        val response = viewModel.emptyValuesLiveData.getOrAwaitValueTest()
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response)
-        assert(!loading)
-    }
-
-    @Test
-    fun `should fetch user authored challenge and return some user`() = runBlockingTest  {
-        success()
-
-        viewModel.getAuthoredChallenges("john123")
-
-        val response = viewModel.authoredLiveData.getOrAwaitValueTest(10)
-        val loading = viewModel.loadingLiveData.getOrAwaitValueTest()
-
-        assert(response.challenges.isNotEmpty())
         assert(!loading)
     }
 

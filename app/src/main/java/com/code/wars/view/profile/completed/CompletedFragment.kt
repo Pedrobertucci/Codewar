@@ -1,6 +1,7 @@
-package com.code.wars.view.profile
+package com.code.wars.view.profile.completed
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.code.wars.R
 import com.code.wars.databinding.FragmentCompletedBinding
 import com.code.wars.models.Completed
-import com.code.wars.viewModels.UserViewModel
+import com.code.wars.view.profile.ProfileOnclickListener
+import com.code.wars.utils.Constants
+import com.code.wars.view.details.CompleteDetailActivity
+import com.code.wars.view.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -29,7 +33,7 @@ class CompletedFragment : Fragment() {
     private var loading = true
 
     @Inject
-    lateinit var viewModel: UserViewModel
+    lateinit var viewModel: CompletedViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding  = DataBindingUtil.inflate(inflater, R.layout.fragment_completed, container, false)
@@ -43,8 +47,16 @@ class CompletedFragment : Fragment() {
         viewModel.getCompletedCodeChallenge((requireActivity() as ProfileActivity).userResponse.username)
     }
 
+    private var onClickListener = object : ProfileOnclickListener {
+        override fun onClick(data: Any) {
+            val intent = Intent(requireActivity() as ProfileActivity, CompleteDetailActivity::class.java)
+            intent.putExtra(Constants.argsCompleted, data as Completed)
+            startActivity(intent)
+        }
+    }
+
     private fun setupCompletedList() {
-        adapter = CompletedAdapter(completedList)
+        adapter = CompletedAdapter(completedList, onClickListener)
         linearLayoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.addOnScrollListener(onScrollListener)
         binding.recyclerView.setHasFixedSize(true)
@@ -57,7 +69,7 @@ class CompletedFragment : Fragment() {
         viewModel.completedLiveData.observe(requireActivity() as ProfileActivity, {
             it?.let {
                 loading = true
-                validateTextIsVisible(it.completed.size <= 0)
+                validateTextIsVisible(it.completed.size > 0)
                 completedList.addAll(it.completed)
                 adapter.notifyDataSetChanged()
             }
@@ -66,6 +78,15 @@ class CompletedFragment : Fragment() {
         viewModel.errorLiveData.observe(requireActivity() as ProfileActivity, {
             it?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.networkErrorLiveData.observe(requireActivity() as ProfileActivity, {
+            it?.let {
+                if (it)
+                    Toast.makeText(requireContext(),
+                                   requireContext().resources.getText(R.string.error_network_title),
+                                   Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -107,8 +128,8 @@ class CompletedFragment : Fragment() {
         }
     }
 
-    private fun validateTextIsVisible(show: Boolean) {
-        if (show && binding.txtEmptyData.visibility == View.INVISIBLE)
+    private fun validateTextIsVisible(enable: Boolean) {
+        if (!enable && binding.txtEmptyData.visibility == View.INVISIBLE)
             binding.txtEmptyData.visibility = View.VISIBLE
         else
             binding.txtEmptyData.visibility = View.INVISIBLE

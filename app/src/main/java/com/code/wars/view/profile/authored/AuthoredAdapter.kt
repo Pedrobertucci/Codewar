@@ -1,20 +1,21 @@
-package com.code.wars.view.profile
+package com.code.wars.view.profile.authored
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.code.wars.databinding.AuthoredCardBinding
 import com.code.wars.models.Challenge
+import com.code.wars.view.profile.ProfileOnclickListener
 
 class AuthoredAdapter(private val challenges: ArrayList<Challenge>,
-                      private val challengeOnClickListener: ChallengeOnClickListener) :
+                      private val profileOnclickListener: ProfileOnclickListener) :
     RecyclerView.Adapter<AuthoredAdapter.ViewHolder>() {
 
     inner class ViewHolder(private val itemBinding: AuthoredCardBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(challenge: Challenge) {
             itemBinding.item = challenge
-            itemBinding.challengeOnClickListener = challengeOnClickListener
+            itemBinding.authoredClickListener = profileOnclickListener
             itemBinding.executePendingBindings()
         }
     }

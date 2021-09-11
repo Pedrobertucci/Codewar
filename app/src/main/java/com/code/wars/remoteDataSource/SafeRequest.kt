@@ -1,3 +1,5 @@
+@file:Suppress("BlockingMethodInNonBlockingContext")
+
 package com.code.wars.remoteDataSource
 
 import retrofit2.HttpException
@@ -5,7 +7,7 @@ import retrofit2.Response
 import java.io.IOException
 
 sealed class SafeResponse<out T> {
-    data class Success<out T>(val value: T): SafeResponse<T>()
+    data class Success<out T>(val data: T): SafeResponse<T>()
     data class GenericError(val code: Int, val error: String? = null): SafeResponse<Nothing>()
     data class NetworkError(val error: String? = null): SafeResponse<Nothing>()
 }

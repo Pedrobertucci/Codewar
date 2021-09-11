@@ -14,7 +14,6 @@ import com.code.wars.utils.Constants
 import com.code.wars.utils.Utils
 import com.code.wars.view.DebouncingQueryTextListener
 import com.code.wars.view.profile.ProfileActivity
-import com.code.wars.viewModels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import androidx.appcompat.app.AlertDialog
@@ -26,7 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter : SearchAdapter
 
     @Inject
-    lateinit var viewModel: UserViewModel
+    lateinit var viewModel: SearchViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +33,11 @@ class MainActivity : AppCompatActivity() {
         setupObservers()
         setupResultList()
         setupSearch()
-        setupNetwork()
+        verifyNetwork()
         binding.lifecycleOwner = this
     }
 
-    private fun setupNetwork() {
+    private fun verifyNetwork() {
        if (!Utils.hasNetwork(this)) {
            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
            builder.setTitle(resources.getText(R.string.error_network_title))
@@ -97,6 +96,12 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        viewModel.networkErrorLiveData.observe(this, {
+            it?.let {
+                if (it) { verifyNetwork() }
+            }
+        })
+
         viewModel.loadingLiveData.observe(this, {
             it?.let {
                 if (it) {
@@ -111,7 +116,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun validateUser(userResponse: UserResponse) {
-        val result = resultList.filter { user-> user.username == userResponse.username}
+        val result = resultList.filter { user-> user.username == userResponse.username }
 
         if (result.isEmpty()) {
             if (resultList.size == 5) {

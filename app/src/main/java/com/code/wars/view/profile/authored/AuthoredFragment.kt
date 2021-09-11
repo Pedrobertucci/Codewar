@@ -1,4 +1,4 @@
-package com.code.wars.view.profile
+package com.code.wars.view.profile.authored
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -13,9 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.code.wars.R
 import com.code.wars.databinding.FragmentAuthoredBinding
 import com.code.wars.models.Challenge
+import com.code.wars.view.profile.ProfileOnclickListener
 import com.code.wars.utils.Constants
-import com.code.wars.view.details.ChallengeDetailActivity
-import com.code.wars.viewModels.UserViewModel
+import com.code.wars.view.details.AuthorDetailActivity
+import com.code.wars.view.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,7 +27,7 @@ class AuthoredFragment : Fragment() {
     private lateinit var adapter : AuthoredAdapter
 
     @Inject
-    lateinit var viewModel: UserViewModel
+    lateinit var viewModel: AuthoredViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding  = DataBindingUtil.inflate(inflater, R.layout.fragment_authored, container, false)
@@ -40,10 +41,10 @@ class AuthoredFragment : Fragment() {
         viewModel.getAuthoredChallenges((requireActivity() as ProfileActivity).userResponse.username)
     }
 
-    private var onClickListener = object : ChallengeOnClickListener {
-        override fun onClick(challenge: Challenge) {
-            val intent = Intent(requireActivity() as ProfileActivity, ChallengeDetailActivity::class.java)
-            intent.putExtra(Constants.argsChallenge, challenge)
+    private var onClickListener = object : ProfileOnclickListener {
+        override fun onClick(data: Any) {
+            val intent = Intent(requireActivity() as ProfileActivity, AuthorDetailActivity::class.java)
+            intent.putExtra(Constants.argsAuthored, data as Challenge)
             startActivity(intent)
         }
     }
@@ -68,6 +69,15 @@ class AuthoredFragment : Fragment() {
         viewModel.errorLiveData.observe(requireActivity() as ProfileActivity, {
             it?.let {
                 Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        viewModel.networkErrorLiveData.observe(requireActivity() as ProfileActivity, {
+            it?.let {
+                if (it)
+                    Toast.makeText(requireContext(),
+                        requireContext().resources.getText(R.string.error_network_title),
+                        Toast.LENGTH_SHORT).show()
             }
         })
 

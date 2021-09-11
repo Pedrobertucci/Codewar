@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
+
         <variable
             name="item"
             type="com.code.wars.models.Challenge" />
+
+        <variable
+            name="authoredOnClickListener"
+            type="com.code.wars.view.profile.ProfileOnclickListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        tools:context=".view.details.AuthorDetailActivity">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_700"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/title_author_detail"
+            app:titleTextColor="@color/white" />
+
 
         <TextView
             android:id="@+id/txtLabelLanguages"
@@ -23,7 +43,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toStartOf="@+id/txtResultLanguages"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtRankName" />
+            app:layout_constraintTop_toBottomOf="@+id/txtSlugLabel" />
 
         <TextView
             android:id="@+id/txtLabelTags"
@@ -48,7 +68,7 @@
             app:languages='@{item.languages ?? ""}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/txtLabelLanguages"
-            app:layout_constraintTop_toBottomOf="@+id/txtRankName"
+            app:layout_constraintTop_toBottomOf="@+id/txtSlugLabel"
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
@@ -100,7 +120,7 @@
             tools:text="@tools:sample/lorem/random" />
 
         <TextView
-            android:id="@+id/txtRankName"
+            android:id="@+id/txtSlugLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -126,22 +146,9 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/txtRankName"
+            app:layout_constraintStart_toEndOf="@+id/txtSlugLabel"
             app:layout_constraintTop_toBottomOf="@+id/txtDescription"
             tools:text="@tools:sample/lorem[0]" />
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@color/purple_700"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:title="@string/title_challenge_detail"
-            app:titleTextColor="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

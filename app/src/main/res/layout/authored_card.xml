@@ -9,8 +9,8 @@
             type="com.code.wars.models.Challenge" />
 
         <variable
-            name="challengeOnClickListener"
-            type="com.code.wars.view.profile.ChallengeOnClickListener" />
+            name="authoredClickListener"
+            type="com.code.wars.view.profile.ProfileOnclickListener" />
 
     </data>
 
@@ -21,7 +21,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         app:cardCornerRadius="8dp"
-        android:onClick="@{() -> challengeOnClickListener.onClick(item)}">
+        android:onClick="@{() -> authoredClickListener.onClick(item)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                 tools:text="@tools:sample/full_names" />
 
             <TextView
-                android:id="@+id/txtRankName"
+                android:id="@+id/txtSlugLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

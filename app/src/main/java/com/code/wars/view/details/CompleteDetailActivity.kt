@@ -5,22 +5,22 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import com.code.wars.R
-import com.code.wars.databinding.ActivityChallengeDetailBinding
-import com.code.wars.models.Challenge
+import com.code.wars.databinding.ActivityCompletedDetailBinding
+import com.code.wars.models.Completed
 import com.code.wars.utils.Constants
 
-class ChallengeDetailActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityChallengeDetailBinding
+class CompleteDetailActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityCompletedDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_challenge_detail)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_completed_detail)
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.setDisplayShowHomeEnabled(true)
-
-        intent.getParcelableExtra<Challenge>(Constants.argsChallenge)?.let {
-           binding.item = it
+        
+        intent.getParcelableExtra<Completed>(Constants.argsCompleted)?.let { it ->
+            binding.item = it
         } ?: finish()
     }
 

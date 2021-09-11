@@ -2,18 +2,17 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/profile_navigation"
     app:startDestination="@id/completedFragment">
 
     <fragment
         android:id="@+id/completedFragment"
-        android:name="com.code.wars.view.profile.CompletedFragment"
+        android:name="com.code.wars.view.profile.completed.CompletedFragment"
         android:label="CompletedFragment"
         tools:layout="@layout/fragment_completed" />
 
     <fragment
         android:id="@+id/authoredFragment"
-        android:name="com.code.wars.view.profile.AuthoredFragment"
+        android:name="com.code.wars.view.profile.authored.AuthoredFragment"
         android:label="AuthoredFragment"
         tools:layout="@layout/fragment_authored" />
 

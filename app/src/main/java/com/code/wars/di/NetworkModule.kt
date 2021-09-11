@@ -2,7 +2,7 @@ package com.code.wars.di
 
 import android.app.Application
 import com.code.wars.BuildConfig
-import com.code.wars.remoteDataSource.RemoteDataSource
+import com.code.wars.remoteDataSource.ApiContract
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,12 +40,12 @@ object NetworkModule {
     }
 
     @Provides
-    fun provideRemoteDataSource(context: Application): RemoteDataSource {
+    fun provideRemoteDataSource(context: Application): ApiContract {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .client(provideOkHttpClient(context))
             .baseUrl(BuildConfig.baseUrl)
             .build()
-            .create(RemoteDataSource::class.java)
+            .create(ApiContract::class.java)
     }
 }

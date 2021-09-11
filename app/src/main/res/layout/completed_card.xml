@@ -8,6 +8,10 @@
             name="item"
             type="com.code.wars.models.Completed" />
 
+        <variable
+            name="completedOnClickListener"
+            type="com.code.wars.view.profile.ProfileOnclickListener" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -16,7 +20,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        app:cardCornerRadius="8dp">
+        app:cardCornerRadius="8dp"
+        android:onClick="@{() -> completedOnClickListener.onClick(item)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -53,7 +58,7 @@
                 tools:text="@tools:sample/lorem" />
 
             <TextView
-                android:id="@+id/txtRankName"
+                android:id="@+id/txtSlugLabel"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -79,7 +84,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txtLabelDate"
-                app:layout_constraintTop_toBottomOf="@+id/txtRankName"
+                app:layout_constraintTop_toBottomOf="@+id/txtSlugLabel"
                 tools:text="@tools:sample/lorem" />
 
             <TextView
@@ -100,7 +105,7 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/completed_date"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtRankName" />
+                app:layout_constraintTop_toBottomOf="@+id/txtSlugLabel" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

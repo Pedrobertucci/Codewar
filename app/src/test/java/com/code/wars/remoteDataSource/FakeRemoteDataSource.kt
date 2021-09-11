@@ -5,7 +5,7 @@ import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody.Companion.toResponseBody
 import retrofit2.Response
 
-class FakeRemoteDataSource : RemoteDataSource {
+class FakeRemoteDataSource : ApiContract {
     var shouldReturnNetworkError = false
     var shouldReturnEmptyValues = false
 

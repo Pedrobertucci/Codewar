@@ -7,7 +7,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 object Converter {
 
     @BindingAdapter( "languages")
@@ -29,13 +28,5 @@ object Converter {
             e.printStackTrace()
             view.text  = ""
         }
-    }
-
-
-    @SuppressLint("SimpleDateFormat")
-    @BindingAdapter("data")
-    @JvmStatic
-    fun fillData(view: TextView, data: String?) {
-        view.text = data ?: ""
     }
 }

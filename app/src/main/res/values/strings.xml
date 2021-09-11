@@ -4,7 +4,6 @@
     <string name="welcome_message">Welcome to Code War</string>
 
     <string name="hint_search_user">Search user…</string>
-    <string name="search_empty">Member not found</string>
 
     <string name="user_not_found">User not found</string>
     <string name="user_without_authored_challenges">User without Authored Challenges</string>
@@ -15,10 +14,11 @@
     <string name="rank">Rank: %1$s</string>
     <string name="best_language">Best Language:</string>
     <string name="languages">Languages</string>
+
     <string name="tags">Tags</string>
 
     <string name="slug">Slug: %1$s</string>
-    <string name="completed_languages">Completed Languages: %1$s</string>
+    <string name="completed_languages">Completed Languages: </string>
     <string name="completed_date">Date: </string>
 
     <string name="generic_name">Name: %1$s</string>
@@ -33,11 +33,8 @@
     <string name="title_completed">Completed Challenges</string>
     <string name="title_authored">Authored Challenges</string>
     <string name="title_challenge_detail">Challenge Detail</string>
+    <string name="title_author_detail">Author Detail</string>
 
-    <string name="completed_show_all_values">End of the List, sorry!</string>
-    <string name="authored_empty_values">Content not available</string>
-
-    <string name="content_description_img_close">Close details</string>
     <string name="content_description_btn_sort">Sort List</string>
 
     <string name="error_network_title">No internet Connection</string>

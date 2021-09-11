@@ -2,6 +2,7 @@ package com.code.wars.di
 
 import android.app.Application
 import com.code.wars.di.NetworkModule.provideRemoteDataSource
+import com.code.wars.remoteDataSource.RemoteDataSource
 import com.code.wars.repositories.DefaultRepository
 import com.code.wars.repositories.UserRepository
 import dagger.Module
@@ -15,6 +16,6 @@ object GenericModule {
 
     @Provides
     fun providerRepository(context: Application): UserRepository {
-        return DefaultRepository(provideRemoteDataSource(context))
+        return DefaultRepository(RemoteDataSource(provideRemoteDataSource(context)))
     }
 }
